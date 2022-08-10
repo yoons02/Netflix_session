@@ -1,7 +1,7 @@
 {
     "name": "netfilx",
     "version": "0.1.0",
-    "homepage": "https://yaena1223.github.io/Netflix_clone",
+    "homepage": "https://yaena1223.github.io/Netflix_clone/",
     "private": true,
     "dependencies": {
         "@testing-library/jest-dom": "5.16.4",
