@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
-
+import { useRef } from "react";
 function Row({ title, id, fetchUrl, isLargeRow }) {
     const BASE_URL = "https://image.tmdb.org/t/p/original/";
     const [movies, setMovies] = useState([]);
@@ -30,15 +30,17 @@ function Row({ title, id, fetchUrl, isLargeRow }) {
     };
     SwiperCore.use([Navigation, Pagination, Autoplay]);
 
+    //모달창 밖에 클릭하면꺼지도록
+
     return (
         <section className="row">
             <h2>{title}</h2>
             {/* 슬라이더 */}
             <div className="slider">
                 <Swiper
-                    spaceBetween={0}
-                    slidesPerView={8}
-                    slidesPerGroup={8}
+                    spaceBetween={20}
+                    slidesPerView={6}
+                    slidesPerGroup={6}
                     onSlideChange={() => console.log("slide change")}
                     navigation={{
                         nextEl: ".slider__arrow-right",
@@ -60,13 +62,9 @@ function Row({ title, id, fetchUrl, isLargeRow }) {
                             <SwiperSlide key={movie.id}>
                                 <img
                                     key={movie.id}
-                                    className={`row__poster ${
-                                        isLargeRow && "row__posterLarge"
-                                    }`}
+                                    className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                                     src={`${BASE_URL}${
-                                        isLargeRow
-                                            ? movie.poster_path
-                                            : movie.backdrop_path
+                                        isLargeRow ? movie.poster_path : movie.backdrop_path
                                     }`}
                                     loading="lazy"
                                     alt={movie.name}
@@ -81,9 +79,7 @@ function Row({ title, id, fetchUrl, isLargeRow }) {
                 </Swiper>
             </div>
 
-            {modalOpen && (
-                <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
-            )}
+            {modalOpen && <MovieModal {...movieSelected} setModalOpen={setModalOpen} />}
         </section>
     );
 }
